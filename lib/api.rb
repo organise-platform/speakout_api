@@ -37,9 +37,9 @@ module Speakout
       JSON.parse(response.body)
     end
 
-    def put
-      response = @client.put("#{base_url}/#{path}", data, headers)
-      JSON.parse(response.body)
+    def put(path, data)
+      response = @client.put("#{base_url}/#{path}", data.to_json, headers)
+      return JSON.parse(response.body), response.status
     end
 
     private

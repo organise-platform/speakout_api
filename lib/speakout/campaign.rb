@@ -12,11 +12,7 @@ module Speakout
         nil
       end
     end
-
-    def create(attributes)
     
-    end
-
     def update(attributes)
       #return 
     end
