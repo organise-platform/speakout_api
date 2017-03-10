@@ -16,7 +16,7 @@ module Speakout
     def update(attributes)
 
       # transform here so it fits straight into Rails' nested attributes structure
-      attributes['question_blocks_attributes'] = attributes['question_blocks']
+      attributes['question_blocks_attributes'] = attributes['question_blocks'] || []
       attributes.delete('question_blocks')
 
       attributes['question_blocks_attributes'] = attributes['question_blocks_attributes'].map do |key, question_block|
