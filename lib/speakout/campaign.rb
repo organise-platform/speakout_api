@@ -14,7 +14,14 @@ module Speakout
     end
     
     def update(attributes)
-      #return 
+      puts "Attributes being sent: #{attributes.inspect}"
+
+      response, status = @api.put("campaigns/#{@id}", attributes) 
+      if status < 400 
+        return true
+      else
+        return false, response['errors']
+      end 
     end
 
     def stats
