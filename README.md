@@ -33,7 +33,8 @@ new_campaign.update_attributes(sign_advice: "Sign the petition because it's impo
 ```
 
 ```ruby
-campaign = speakout.campaigns.find_by_id(1) 
+campaign = speakout.campaigns.find_by_id(1)
+campaign.attributes #=> {id: 1, name: "Hello", ....}
 ```
 
 ### Surveys
