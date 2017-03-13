@@ -1,8 +1,6 @@
 # SpeakoutApi
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/speakout_api`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Does what it says on the tin. Currently supported are Campaigns and Surveys.
 
 ## Installation
 
@@ -22,7 +20,25 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Create a new Speakout API instance using the domain of your Speakout installation. E.g. https://my-speakout.herokuapp.com and an account username and password.
+
+`speakout = Speakout::API.new(host, username, password)`
+
+### Campaigns
+
+```ruby
+new_campaign = speakout.campaigns.create({name: "Hello", internal_name: "TEST campaign 1"})
+new_campaign.update_attributes(actions: 'sign,donate,share')
+new_campaign.update_attributes(sign_advice: "Sign the petition because it's important!", donate_advice: "Now donate please")
+```
+
+```ruby
+campaign = speakout.campaigns.find_by_id(1) 
+```
+
+### Surveys
+
+TODO Write Description
 
 ## Development
 
@@ -32,7 +48,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/speakout_api. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/jamesr2323/speakout_api. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 
 ## License
