@@ -5,12 +5,13 @@ module Speakout
     end
 
     def all
-      @api.get('campaigns')
+      response, status = @api.get('campaigns')
+      response 
     end
 
     def create(attributes)
-      response = @api.post('campaigns', attributes.to_json)
-      unless response['errors']
+      response, status = @api.post('campaigns', attributes.to_json)
+      unless status >= 400
         return Speakout::Campaign.new(@api, response['id'])
       else
         return response
@@ -18,7 +19,7 @@ module Speakout
     end
 
     def find_by_id(id)
-      if @api.get("campaigns/#{id}")
+      if @api.get("campaigns/#{id}")[1] < 400
         Speakout::Campaign.new(@api, id)
       else
         raise "Not found"

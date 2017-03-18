@@ -7,14 +7,15 @@ module Speakout
 
     def attributes
       if @id
-        @api.get("surveys/#{@id}")
+        response, status = @api.get("surveys/#{@id}")
+        return response
       else
         nil
       end
     end
 
     def update(attributes)
-
+      attributes.delete('id')
       # transform here so it fits straight into Rails' nested attributes structure
       attributes['question_blocks_attributes'] = attributes['question_blocks'] || []
       attributes.delete('question_blocks')
@@ -32,6 +33,17 @@ module Speakout
         return true
       else
         return false, response['errors']
+      end
+    end
+
+    # Copies the campaign and returns a Speakout::Campaign with new campaign
+    def clone
+      response, status = @api.post("surveys/#{@id}/clone")
+      if status < 400
+        new_id = response['id']
+        return Speakout::Survey.new(@api, new_id)
+      else
+        return false
       end
     end
 

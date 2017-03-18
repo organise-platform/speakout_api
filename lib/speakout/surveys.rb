@@ -7,12 +7,13 @@ module Speakout
     end
 
     def all
-      @api.get('surveys')
+      response, status = @api.get('surveys')
+      response
     end
 
     def create(attributes)
-      response = @api.post('surveys', attributes.to_json)
-      unless response['errors']
+      response, status = @api.post('surveys', attributes.to_json)
+      unless status >= 400
         return Speakout::Survey.new(@api, response['id'])
       else
         return response
@@ -20,7 +21,7 @@ module Speakout
     end
 
     def find_by_id(id)
-      if @api.get("surveys/#{id}")
+      if @api.get("surveys/#{id}")[1] < 400
         Speakout::Survey.new(@api, id)
       else
         raise "Not found"
