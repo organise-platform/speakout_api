@@ -29,15 +29,15 @@ module Speakout
 
     def get(path)
       response = @client.get("#{base_url}/#{path}", nil, headers)
-      JSON.parse(response.body)
+      return JSON.parse(response.body), response.status
     end
 
-    def post(path, data)
+    def post(path, data = {})
       response = @client.post("#{base_url}/#{path}", data, headers)
-      JSON.parse(response.body)
+      return JSON.parse(response.body), response.status
     end
 
-    def put(path, data)
+    def put(path, data = {})
       response = @client.put("#{base_url}/#{path}", data.to_json, headers)
       return JSON.parse(response.body), response.status
     end
