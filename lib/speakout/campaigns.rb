@@ -11,10 +11,10 @@ module Speakout
 
     def create(attributes)
       response, status = @api.post('campaigns', attributes.to_json)
-      unless status >= 400
-        return Speakout::Campaign.new(@api, response['id'])
+      if status < 400
+        Speakout::Campaign.new(@api, response['id'])
       else
-        return response
+        response
       end
     end
 
@@ -27,7 +27,7 @@ module Speakout
     end
 
     def exists?(id)
-      
+      @api.get("campaigns/#{id}")[1] < 400
     end
   end
 end
